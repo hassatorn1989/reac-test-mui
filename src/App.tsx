@@ -34,6 +34,16 @@ const theme = createTheme(
         letterSpacing: '-0.00833em',
       }
     },
+    components: {
+      MuiFormHelperText: {
+        styleOverrides: {
+          root: {
+            color: "red",
+            marginLeft: 0,
+          }
+        }
+      }
+    }
   },
 );
 

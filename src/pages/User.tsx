@@ -1,9 +1,9 @@
-import { Typography } from '@mui/material';
+import { List, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Typography } from '@mui/material';
 import { useLoaderData } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { getUser } from '../features/listUserSlice';
+import { useEffect, useState } from 'react';
 import { RootState } from '../app/store';
+import { getUserList } from '../features/userSlice';
 
 
 export async function loader() {
@@ -15,36 +15,59 @@ export async function loader() {
 export function Component() {
     let data = useLoaderData() as string;
 
-    const user = useSelector((state: RootState) => state.userStore.userList);
+    const datas = useSelector((state: RootState) => state.userReducer);
     const dispatch = useDispatch();
 
+    const [page, setPage] = useState(1)
+
     useEffect(() => {
-        function fetchUser() {
-            dispatch(getUser());
-        }
-        fetchUser();
-        // console.log(user);
-        
-    }, []);
+        dispatch(getUserList(page));
+    }, [page]);
+
     return (
         <>
-            <Typography paragraph>
-                {console.log(user)}
-            </Typography>
-            <Typography paragraph>
-                Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-                ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-                elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-                sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-                mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-                risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-                purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-                tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-                morbi tristique senectus et. Adipiscing elit duis tristique
-                sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-                eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-                posuere sollicitudin aliquam ultrices sagittis orci a.
-            </Typography>
+            {
+                (() => {
+                    if (datas.loading === 'pending') {
+                        return (
+                            <div>Loading...</div>
+                        )
+                    } else if (datas.loading === 'succeeded') {
+                        return (
+                            (
+                                <ul>
+                                    {datas.entities.map((item: any) => (
+                                        <li key={item.id}>{item.email}</li>
+                                    ))}
+                                </ul>
+                            )
+                        )
+                    }else {
+                        return (
+                            <div>{datas.errorMessage}</div>
+                        )
+                    }
+                    // if (user.isLoading) {
+                    //     return (
+                    //         <div>Loading...</div>
+                    //     )
+                    // }else if (user.isSuccess) {
+                    //     return (
+                    //         (
+                    //             <ul>
+                    //                 {user.data.map(user => (
+                    //                     <li key={user.id}>{user.email}</li>
+                    //                 ))}
+                    //             </ul>
+                    //         )
+                    //     )
+                    // }else {
+                    //     return (
+                    //         <div>{user.errorMessage}</div>
+                    //     )
+                    // }
+                })()
+            }
         </>
     )
 }
