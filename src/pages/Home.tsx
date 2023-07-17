@@ -11,7 +11,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export async function loader() {
     await new Promise((r) => setTimeout(r, 0));
-    return "I came from the About.tsx loader function!";
+    return "I came from the About.tsx loader function!asdasdas";
 }
 
 

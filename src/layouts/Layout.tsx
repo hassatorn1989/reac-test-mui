@@ -17,6 +17,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link, Outlet } from "react-router-dom";
 // import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 // import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -54,12 +56,12 @@ export default function Layout(props: Props) {
         <div>
 
             <Toolbar>
-                <Typography variant="h6" noWrap 
-                sx={{ 
-                    textUnderlineOffset: 'none',
-                 }}
-                component={Link} 
-                to={"/"}
+                <Typography variant="h6" noWrap
+                    sx={{
+                        textUnderlineOffset: 'none',
+                    }}
+                    component={Link}
+                    to={"/"}
                 >
                     Report Manager
                 </Typography>
@@ -144,9 +146,9 @@ export default function Layout(props: Props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div" sx={{ 
+                    <Typography variant="h6" noWrap component="div" sx={{
                         display: { xs: 'block', sm: 'none' },
-                     }}>
+                    }}>
                         Report Manager
                     </Typography>
                 </Toolbar>
@@ -170,6 +172,7 @@ export default function Layout(props: Props) {
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                     }}
                 >
+                    
                     {drawer}
                 </Drawer>
                 <Drawer
